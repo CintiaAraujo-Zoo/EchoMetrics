@@ -1,6 +1,6 @@
 # EchoMetrics - Analisador de Carcaça por Ultrassom
 
-![Screenshot da Aplicação](C:\Users\cindy\OneDrive\Documentos\Projetos\medidor_ultrassom_web\Echometrics.png) 
+![Screenshot da Aplicação](\medidor_ultrassom_web\Echometrics.png) 
 
 
 EchoMetrics é uma aplicação web desenvolvida para a análise precisa de imagens de ultrassom de carcaça, permitindo a medição da Área de Olho de Lombo (AOL) e da Espessura de Gordura Subcutânea (EGS) em diversas espécies.
