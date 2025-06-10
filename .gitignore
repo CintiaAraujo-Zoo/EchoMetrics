@@ -1,0 +1,12 @@
+# Arquivos temporários do Python
+__pycache__/
+*.pyc
+
+# Pastas de ambiente virtual (boa prática)
+venv/
+.venv/
+env/
+
+# Pastas de dados gerados pelo usuário
+/uploads/
+/results/
