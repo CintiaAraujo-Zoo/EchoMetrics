@@ -22,3 +22,4 @@ EchoMetrics é uma aplicação web desenvolvida para a análise precisa de image
 ## 👤 Créditos
 
 Desenvolvido por **C. M. Araujo**, 2025.
+oi
