@@ -26,7 +26,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
+Open your browser at `http://localhost:5000`
 
 ---
 
@@ -66,7 +66,7 @@ EchoMetrics/
 3. Connect your GitHub repository
 4. Render detects `render.yaml` automatically — click **Deploy**
 
-Your app will be live at `[https://echometrics.onrender.com](https://echometrics-m33u.onrender.com)`.
+Your app will be live at `https://echometrics-m33u.onrender.com`.
 
 ---
 
@@ -90,7 +90,7 @@ MIT License — see [`LICENSE`](LICENSE) for details.
 
 ## 👤 Author
 
-**Cintia Araujo**  
+**Cintia Araujo (Kaoru)**  
 Faculty, UESPI — Campus Corrente  
 Doctoral Researcher, UNIVASF — Programa de Pós-Graduação em Zootecnia  
 Visiting Researcher, University of Illinois at Urbana-Champaign (UIUC)
