@@ -1,7 +1,5 @@
 # 🔬 EchoMetrics — Carcass Ultrasound Analyzer
 
-![EchoMetrics Screenshot](Echometrics.png)
-
 A web application for precise measurement of **Longissimus dorsi muscle area (AOL/REA)** and **subcutaneous fat thickness (EGS/BFT)** from B-mode ultrasound images — directly in the browser, no software installation required.
 
 Designed for livestock research in cattle, sheep, goats, and other ruminants.
