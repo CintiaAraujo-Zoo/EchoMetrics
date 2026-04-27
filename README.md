@@ -66,7 +66,7 @@ EchoMetrics/
 3. Connect your GitHub repository
 4. Render detects `render.yaml` automatically — click **Deploy**
 
-Your app will be live at `https://echometrics.onrender.com` (or similar).
+Your app will be live at `[https://echometrics.onrender.com](https://echometrics-m33u.onrender.com)`.
 
 ---
 
