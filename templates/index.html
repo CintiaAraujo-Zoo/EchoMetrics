@@ -1,101 +1,113 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EchoMetrics - Analisador de Carcaça</title>
-    
-    <!-- Google Fonts e Font Awesome (Ícones) -->
+    <title>EchoMetrics — Carcass Ultrasound Analyzer</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <!-- Container para as notificações "toast" -->
     <div id="toast-container"></div>
 
     <div class="container">
         <header>
             <h1>
-                <!-- Novo logo para EchoMetrics -->
                 <svg class="logo" viewBox="0 0 130 50" xmlns="http://www.w3.org/2000/svg">
                     <path d="M 10 25 C 20 5, 30 45, 40 25 C 50 5, 60 45, 70 25" fill="none" stroke="var(--primary-color)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M 70 25 L 85 25 L 85 10" fill="none" stroke="var(--secondary-color)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <circle cx="85" cy="10" r="4" fill="var(--danger-color)"/>
                 </svg>
-                <!-- Novo nome do software -->
                 EchoMetrics
             </h1>
-            <p>Análise de Carcaça por Ultrassom</p>
+            <p>Carcass Ultrasound Analyzer</p>
         </header>
 
         <div class="main-content">
+
+            <!-- Controls panel -->
             <div class="controls-panel">
-                <h2><i class="fa-solid fa-sliders"></i> Controles</h2>
-                
+                <h2><i class="fa-solid fa-sliders"></i> Controls</h2>
+
                 <div class="mode-selection">
-                    <strong>Modo de Análise:</strong>
+                    <strong>Analysis Mode:</strong>
                     <label><input type="radio" name="analysisMode" value="individual" checked> Individual</label>
-                    <label><input type="radio" name="analysisMode" value="batch"> Em Lote</label>
+                    <label><input type="radio" name="analysisMode" value="batch"> Batch</label>
                 </div>
-                
+
                 <div id="batch-controls" class="hidden">
-                    <label for="batchCode">Código Geral do Lote:</label>
-                    <input type="text" id="batchCode" placeholder="Ex: LOTE01">
-                    <button id="startBatchButton" class="btn btn-primary"><i class="fa-solid fa-play"></i> Iniciar Lote</button>
+                    <label for="batchCode">Batch Code:</label>
+                    <input type="text" id="batchCode" placeholder="e.g. LOTE01">
+                    <button id="startBatchButton" class="btn btn-primary">
+                        <i class="fa-solid fa-play"></i> Start Batch
+                    </button>
                 </div>
                 <hr>
 
                 <div id="file-upload-area">
-                    <p><strong><i class="fa-solid fa-file-arrow-up"></i> Arquivo:</strong></p>
+                    <p><strong><i class="fa-solid fa-file-arrow-up"></i> File:</strong></p>
                     <input type="file" id="imageLoader" accept="image/*">
                 </div>
 
-                <button id="resetButton" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Recomeçar Tudo</button>
+                <button id="resetButton" class="btn btn-danger">
+                    <i class="fa-solid fa-trash-can"></i> Reset
+                </button>
+
+                <!-- Download button — hidden until batch has at least one row -->
+                <button id="downloadExcelButton" class="btn btn-success hidden" style="margin-top: 10px;">
+                    <i class="fa-solid fa-file-excel"></i> Download Excel
+                </button>
+
                 <hr>
 
                 <div id="instructions">
-                    <h3><i class="fa-solid fa-info-circle"></i> Passo 1: Escolha o modo</h3>
-                    <p>Selecione "Individual" para uma única imagem ou "Em Lote" para salvar em Excel.</p>
+                    <h3><i class="fa-solid fa-info-circle"></i> Step 1: Choose a mode</h3>
+                    <p>Select <em>Individual</em> for a single image or <em>Batch</em> to export results to Excel.</p>
                 </div>
             </div>
 
+            <!-- Image display -->
             <div class="canvas-container">
-                <p>A imagem para análise aparecerá aqui.</p>
-                <img id="finalImage" src="" alt="Imagem com marcações finais" />
+                <p>The annotated image will appear here.</p>
+                <img id="finalImage" src="" alt="Annotated ultrasound image" />
             </div>
 
+            <!-- Results panel -->
             <div class="results-panel">
-                <h2><i class="fa-solid fa-chart-bar"></i> Resultados</h2>
+                <h2><i class="fa-solid fa-chart-bar"></i> Results</h2>
                 <div class="result-item">
-                    <span>Área de Olho de Lombo (AOL):</span>
+                    <span>Longissimus dorsi area (AOL):</span>
                     <strong id="aolResult">-- cm²</strong>
                 </div>
                 <div class="result-item">
-                    <span>Espessura de Gordura (EGS):</span>
+                    <span>Subcutaneous fat thickness (EGS):</span>
                     <strong id="fatResult">-- cm</strong>
                 </div>
-                 <div class="result-item-small">
-                    <span>Calibração:</span>
+                <div class="result-item-small">
+                    <span>Calibration:</span>
                     <i id="calibrationResult">-- px/cm</i>
                 </div>
             </div>
         </div>
-        
-        <!-- Rodapé com os créditos -->
+
         <footer>
-            <p>Desenvolvido por C. M. Araujo, 2025</p>
+            <p>Developed by C. M. Araujo, 2025 &nbsp;·&nbsp;
+               <a href="https://github.com/CintiaAraujo-Zoo/EchoMetrics" target="_blank">
+                   <i class="fa-brands fa-github"></i> GitHub
+               </a>
+            </p>
         </footer>
     </div>
 
-    <!-- Estrutura do Modal -->
+    <!-- Modal -->
     <div id="modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modalTitle">Análise da Imagem</h2>
+                <h2 id="modalTitle">Image Analysis</h2>
                 <div class="zoom-controls">
                     <button class="btn btn-secondary" id="zoom-out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
                     <span id="zoom-level">100%</span>
@@ -105,8 +117,10 @@
             </div>
             <div class="modal-body"><canvas id="modalCanvas"></canvas></div>
             <div class="modal-footer">
-                <p id="modalInstructions">Instruções aparecerão aqui.</p>
-                <button id="confirm-step-button" class="btn btn-success"><i class="fa-solid fa-check"></i> Confirmar Forma</button>
+                <p id="modalInstructions">Instructions will appear here.</p>
+                <button id="confirm-step-button" class="btn btn-success">
+                    <i class="fa-solid fa-check"></i> Confirm Shape
+                </button>
             </div>
         </div>
     </div>
